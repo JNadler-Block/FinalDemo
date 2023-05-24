@@ -5,6 +5,8 @@ class Start extends GameLevel {
 
     preload() {
         this.load.image('player', 'assets/player.png');
+        this.load.image('speechBubble', 'assets/speechBubble.png');
+        this.load.spritesheet('icon', 'assets/spritesheet.png', { frameWidth: 100, frameHeight: 100 });
         this.load.json('map', 'map.json');
     }
 
@@ -49,16 +51,16 @@ class Start extends GameLevel {
         this.player.setVelocity(0);
         // movement
         if(keys.left.isDown || keys.a.isDown) {
-            this.player.setVelocityX(-500);
+            this.player.setVelocityX(-this.speed);
         }
         if(keys.right.isDown || keys.d.isDown) {
-            this.player.setVelocityX(500);
+            this.player.setVelocityX(this.speed);
         }
         if(keys.up.isDown || keys.w.isDown) {
-            this.player.setVelocityY(-500);
+            this.player.setVelocityY(-this.speed);
         } 
         if(keys.down.isDown || keys.s.isDown) {
-            this.player.setVelocityY(500);
+            this.player.setVelocityY(this.speed);
         } 
 
         // lets the player get chased again

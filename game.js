@@ -1,7 +1,7 @@
 class GameLevel extends Phaser.Scene {
     init(data) {
         this.location = data.location || {r: 3, c: 1};
-        this.playerLocation = data.playerLocation || {x: 912, y: 492}
+        this.playerLocation = data.playerLocation || {x: 912, y: 492};
         this.playerChased = data.playerChased || false;
         this.monsterLocation = data.monsterLocation || {r: 0, c: 0};
         this.chaseTime = data.chaseTime || 0;
@@ -38,7 +38,32 @@ class GameLevel extends Phaser.Scene {
             }
         });
 
+        // textBox
+        this.shown = false;
+        this.input.keyboard.on('keydown-' + 'T', () => { 
+            if (!this.shown) {
+                this.showTextBox("Hi! How are you?", 100, 0);
+            } else {
+                this.hideTextBox();
+            }
+            this.shown = !this.shown;
+        });
+
         this.onEnter();
+    }
+
+    showTextBox(t, size, i) { // text, font size, which spritesheet icon to use
+        this.bubble = this.add.image(this.w * 0.44, this.h * 0.85, 'speechBubble').setOrigin(0.5, 0.5).setAlpha(1).setScale(1.18, 1);
+        this.text = this.add.text(this.w * 0.35, this.h * 0.85, t, { color: '#000000', fontSize: size })
+            .setOrigin(0.5, 0.5)
+            .setStroke(0x000000, 5);
+        this.i = this.add.image(this.w * 0.9, this.h * 0.81, 'icon', i).setAlpha(1).setScale(3); // i == 0 is neutral, i == 1 is irritated
+    }
+
+    hideTextBox() {
+        this.bubble.setAlpha(0);
+        this.text.setAlpha(0);
+        this.i.setAlpha(0);
     }
 
     initializePlayer() {
@@ -110,6 +135,7 @@ class GameLevel extends Phaser.Scene {
     }
 
     checkMonsterWarning() {
+        // if you escape when cross
         if(this.playerChased && this.caught && (this.monsterLocation.r != this.location.r || this.monsterLocation.c != this.location.c)) { // if the player was caught but got away
             this.playerChased = !this.playerChased;
             this.caught = !this.caught;
