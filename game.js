@@ -53,7 +53,7 @@ class GameLevel extends Phaser.Scene {
     }
 
     showTextBox(t, size, i) { // text, font size, which spritesheet icon to use
-        this.bubble = this.add.image(this.w * 0.44, this.h * 0.85, 'speechBubble').setOrigin(0.5, 0.5).setAlpha(1).setScale(1.18, 1);
+        this.bubble = this.add.image(this.w * 0.44, this.h * 0.85, 'speechBubble').setOrigin(0.5, 0.5).setAlpha(1).setScale(1.16, 1);
         this.text = this.add.text(this.w * 0.35, this.h * 0.85, t, { color: '#000000', fontSize: size })
             .setOrigin(0.5, 0.5)
             .setStroke(0x000000, 5);
